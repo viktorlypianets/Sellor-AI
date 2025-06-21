@@ -6,6 +6,10 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const SHOPIFY_API_KEY = 0x12d38365aef5190ec24046b50e44cfb0;
+const SHOPIFY_API_SECRET = 0x78571cdd27412a856a7706a39bf6977a;
+const FRONTEND_URLL = "https://sellor-ai-1.onrender.com/";
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -250,4 +254,46 @@ app.listen(PORT, () => {
   console.log("\nTest endpoints:");
   console.log("- http://localhost:5000/api/test");
   console.log("- http://localhost:5000/api/test-did");
+});
+
+// Shopify OAuth integration
+app.get("/auth", (req, res) => {
+  const { shop } = req.query;
+  if (!shop) {
+    return res.status(400).send("Missing shop parameter");
+  }
+  const redirectUrl = generateAuthUrl(shop);
+  res.redirect(redirectUrl);
+});
+
+app.get("/auth/callback", async (req, res) => {
+  const { shop, code, hmac, state } = req.query;
+  if (!verifyHmac(req.query)) {
+    return res.status(400).send("HMAC validation failed");
+  }
+  try {
+    const accessTokenRequestUrl = `https://${shop}/admin/oauth/access_token`;
+    const accessTokenPayload = {
+      client_id: SHOPIFY_API_KEY,
+      client_secret: SHOPIFY_API_SECRET,
+      code,
+    };
+    const response = await axios.post(
+      accessTokenRequestUrl,
+      accessTokenPayload
+    );
+    const { access_token } = response.data;
+    console.log("Access Token:", access_token);
+    // token = access_token;
+    const FRONTEND_URL = FRONTEND_URLL || "http://localhost:3000";
+    res.redirect(`${FRONTEND_URL}`);
+  } catch (error) {
+    if (error.response) {
+      console.error("Shopify Error:", error.response.data);
+      return res.status(500).json({ error: error.response.data });
+    } else {
+      console.error("Error:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 });
