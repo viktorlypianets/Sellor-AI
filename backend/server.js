@@ -13,6 +13,7 @@ const FRONTEND_URLL = "https://sellor-ai-1.onrender.com/";
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "frontend/build")));
 
 // OpenAI Chat endpoint with D-ID Clips API
 app.post("/api/chat", async (req, res) => {
@@ -240,23 +241,6 @@ app.get("/health", (req, res) => {
   res.json({ status: "OK", port: PORT });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log("Environment check:");
-  console.log(
-    "- OpenAI API Key:",
-    process.env.OPENAI_API_KEY ? "Present" : "Missing"
-  );
-  console.log(
-    "- D-ID API Key:",
-    process.env.DID_API_KEY ? "Present" : "Missing"
-  );
-  console.log("\nTest endpoints:");
-  console.log("- http://localhost:5000/api/test");
-  console.log("- http://localhost:5000/api/test-did");
-});
-
-// Shopify OAuth integration
 app.get("/auth", (req, res) => {
   const { shop } = req.query;
   if (!shop) {
@@ -297,3 +281,25 @@ app.get("/auth/callback", async (req, res) => {
     }
   }
 });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/build/index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log("Environment check:");
+  console.log(
+    "- OpenAI API Key:",
+    process.env.OPENAI_API_KEY ? "Present" : "Missing"
+  );
+  console.log(
+    "- D-ID API Key:",
+    process.env.DID_API_KEY ? "Present" : "Missing"
+  );
+  console.log("\nTest endpoints:");
+  console.log("- http://localhost:5000/api/test");
+  console.log("- http://localhost:5000/api/test-did");
+});
+
+// Shopify OAuth integration
