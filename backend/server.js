@@ -14,7 +14,7 @@ const FRONTEND_URLL = "https://sellor-ai-1.onrender.com/";
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "frontend/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 // OpenAI Chat endpoint with D-ID Clips API
 app.post("/api/chat", async (req, res) => {
