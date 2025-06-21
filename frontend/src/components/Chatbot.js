@@ -91,7 +91,7 @@ const Chatbot = () => {
 
     try {
       const response = await axios.post(
-        "https://sellor-ai.onrender.com/localhost:5000/api/chat",
+        "https://sellor-ai.onrender.com/api/chat",
         {
           message: messageToSend,
         }
