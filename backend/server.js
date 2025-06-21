@@ -7,10 +7,9 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const SHOPIFY_API_KEY = 0x12d38365aef5190ec24046b50e44cfb0;
-const SHOPIFY_API_SECRET = 0x78571cdd27412a856a7706a39bf6977a;
-const FRONTEND_URLL = "https://sellor-ai-1.onrender.com/";
-
+const SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
+const SHOPIFY_API_SECRET = process.env.SHOPIFY_API_SECRET;
+const FRONTEND_URLL = process.env.FRONTEND_URLL;
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -242,11 +241,30 @@ app.get("/health", (req, res) => {
   res.json({ status: "OK", port: PORT });
 });
 
+function generateAuthUrl(shop) {
+  const state = crypto.randomBytes(16).toString("hex"); // nonce
+  const redirectUri = encodeURIComponent(process.env.SHOPIFY_REDIRECT_URI);
+  const scopes = process.env.SCOPES;
+  console.log(
+    "Generating auth URL with shop:&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",
+    shop,
+    scopes,
+    redirectUri,
+    state
+  );
+  console.log(
+    "abcdefghijklopqrstuvwxyz",
+    `https://${shop}/admin/oauth/authorize?client_id=${process.env.SHOPIFY_API_KEY}&scope=${scopes}&redirect_uri=${redirectUri}&state=${state}`
+  );
+  return `https://${shop}/admin/oauth/authorize?client_id=${process.env.SHOPIFY_API_KEY}&scope=${scopes}&redirect_uri=${redirectUri}&state=${state}`;
+}
+
 app.get("/auth", (req, res) => {
   const { shop } = req.query;
   if (!shop) {
     return res.status(400).send("Missing shop parameter");
   }
+  console.log("shop", shop);
   const redirectUrl = generateAuthUrl(shop);
   res.redirect(redirectUrl);
 });
@@ -259,8 +277,8 @@ app.get("/auth/callback", async (req, res) => {
   try {
     const accessTokenRequestUrl = `https://${shop}/admin/oauth/access_token`;
     const accessTokenPayload = {
-      client_id: SHOPIFY_API_KEY,
-      client_secret: SHOPIFY_API_SECRET,
+      client_id: process.env.SHOPIFY_API_KEY,
+      client_secret: process.env.SHOPIFY_API_SECRET,
       code,
     };
     const response = await axios.post(
