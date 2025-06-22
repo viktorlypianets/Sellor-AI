@@ -260,6 +260,19 @@ function generateAuthUrl(shop) {
   return `https://${shop}/admin/oauth/authorize?client_id=${process.env.SHOPIFY_API_KEY}&scope=${scopes}&redirect_uri=${redirectUri}&state=${state}`;
 }
 
+function verifyHmac(query) {
+  const { hmac, ...rest } = query;
+  const message = Object.keys(rest)
+    .sort()
+    .map((key) => `${key}=${rest[key]}`)
+    .join("&");
+  const generatedHash = crypto
+    .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
+    .update(message)
+    .digest("hex");
+  return generatedHash === hmac;
+}
+
 app.get("/auth", (req, res) => {
   const { shop } = req.query;
   if (!shop) {
