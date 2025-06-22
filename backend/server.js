@@ -242,6 +242,8 @@ app.get("/health", (req, res) => {
   res.json({ status: "OK", port: PORT });
 });
 
+console.log("Client Secret:", process.env.SHOPIFY_API_SECRET);
+
 function generateAuthUrl(shop) {
   const state = crypto.randomBytes(16).toString("hex"); // nonce
   const redirectUri = encodeURIComponent(process.env.SHOPIFY_REDIRECT_URI);
