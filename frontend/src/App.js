@@ -55,8 +55,9 @@ function App() {
         )
       )
     ),
-    React.createElement(Chatbot),
-    React.createElement(InstallButton)
+    React.createElement(Chatbot)
+
+    // React.createElement(InstallButton)
   );
 }
 
