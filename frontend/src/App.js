@@ -5,7 +5,7 @@ import "./App.css";
 
 function App() {
   return React.createElement(
-    React.createElement(Chatbot)
+    <Chatbot />
     // React.createElement(InstallButton)
   );
 }
