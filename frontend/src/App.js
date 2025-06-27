@@ -1,45 +1,28 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import Chatbot from "./components/Chatbot";
-import InstallButton from "./components/InstallButton";
-import "./App.css";
+import React, { useState } from "react";
+import InstallButton from "./pages/InstallButteon";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-function App() {
+import { AppProvider, Frame } from "@shopify/polaris";
+import Dashboard from "./pages/Dashboard";
+import Customer from "./pages/Cusomter";
+
+const App = () => {
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>SmartAsk Chatbot</h1>
-      </header>
-      <main className="app-main">
-        <Chatbot config={window.SmartAskConfig} />
-        <InstallButton />
-      </main>
-      <footer className="app-footer">
-        <p>&copy; 2023 SmartAsk. All rights reserved.</p>
-      </footer>
-    </div>
+    <Router>
+      <Frame>
+        <Routes>
+          <Route path="/customer/:id" element={<Customer />} />
+          <Route path="/login" element={<InstallButton />} />
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </Frame>
+    </Router>
   );
-}
-
-// Wait for DOM to fully load
-document.addEventListener("DOMContentLoaded", () => {
-  const rootEl = document.getElementById("smartask-widget-root");
-  if (!rootEl) {
-    console.error(":x: smartask-widget-root not found in DOM");
-    return;
-  }
-  if (!window.SmartAskConfig) {
-    console.error(":x: SmartAskConfig missing");
-    return;
-  }
-  const root = ReactDOM.createRoot(rootEl);
-  root.render(
-    <React.StrictMode>
-      <div className="app">
-        <Chatbot config={window.SmartAskConfig} />
-      </div>
-    </React.StrictMode>
-  );
-});
+};
 
 export default App;

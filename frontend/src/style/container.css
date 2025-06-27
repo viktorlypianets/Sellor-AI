@@ -1,0 +1,161 @@
+.mainContainter {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  flex: 1;
+  justify-content: flex-start;
+  height: 100%;
+  overflow-y: auto;
+  background-color: white;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  font-family: sans-serif;
+}
+.reply-header {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo {
+  width: 32px;
+  height: 32px;
+}
+.icon-group {
+  display: flex;
+  gap: 16px;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+}
+.controls {
+  display: flex;
+  width: 80%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.search-box {
+  position: relative;
+  width: 200px;
+}
+.search-box input {
+  padding: 8px 8px 8px 32px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+.search-icon {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  color: #888;
+}
+.filter-icon {
+  height: 16px;
+}
+.filter-button {
+  padding: 8px 12px;
+  border: none;
+  background: #e3e3e3;
+  border-radius: 15px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.product-table {
+  width: 80%;
+  border-collapse: collapse;
+  border-spacing: 0 8px;
+}
+.select-table {
+  width: 100px;
+  height: 30px;
+  color: gray;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.alt-row {
+  background-color: #f9f9f9;
+}
+.product-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+.product-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+}
+.status-badge {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 12px;
+  display: inline-block;
+}
+.status-red {
+  background: #fde2e2;
+  color: #d32f2f;
+}
+.status-green {
+  background: #e2f5e9;
+  color: #388e3c;
+}
+.status-yellow {
+  background: #fff8e1;
+  color: #fbc02d;
+}
+.link {
+  color: #4a90e2;
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: underline;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.page-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.page-button.active {
+  background: #4a90e2;
+  color: white;
+  border-radius: 50%;
+}
+
+td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.navigation-button {
+  background-color: white;
+  border: none;
+}

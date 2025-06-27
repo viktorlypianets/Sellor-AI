@@ -1,13 +1,289 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+}
+
+.container {
+  padding: 24px;
+}
+
+.tab-menu {
+  display: flex;
+  gap: 16px;
+  background-color: white;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.tab-menu button {
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #333;
+  border-bottom: 3px solid transparent;
+  transition: 0.2s;
+}
+
+.tab-menu button:hover {
+  color: #007bff;
+}
+
+.tab-menu button.active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.card {
+  background: white;
+  width: 100%;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card1 {
+  background: white;
+  width: 20%;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  width: 100%;
+}
+h3 {
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+button.approve {
+  background-color: #007bff;
+  color: white;
+}
+
+button.edit {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+button.delete {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+button img {
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+.navbar {
+  display: flex;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0 24px;
+}
+
+.navbar button {
+  flex: none;
+  background: none;
+  border: none;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #495057;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar button:hover {
+  color: #007bff;
+}
+
+.navbar button.active {
+  color: #007bff;
+  border-bottom: 3px solid #007bff;
+  background-color: #f8f9fa;
+}
+
+.chatbot-settings {
+  display: flex;
+  gap: 50px;
+  align-items: start;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  border-radius: 24px;
+  transition: background 0.2s;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: #000;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Select and label styling */
+.card label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #111;
+}
+
+.card select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  margin-top: 6px;
+  background: #fff;
+  appearance: none;
+}
+
+.card option {
+  font-size: 1rem;
+}
+
+/* Color dots for Styling select */
+.color-dot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #bbb;
+  vertical-align: middle;
+}
+
+.color-dot.blue {
+  background: #007bff;
+}
+.color-dot.gray {
+  background: #888;
+}
+.color-dot.purple {
+  background: #a259ff;
+}
+
+.chatbot-settings .card button {
+  color: white;
+  background: #007bff;
+}
+
+.card-content {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  font-weight: 400;
+  border-bottom: 1px solid #e3e3e3;
+  flex-grow: auto auto;
+}
+
+.download-button {
+  background-color: #007bff;
+  margin-top: 20px;
+}
+
+table th tr {
+  border-collapse: collapse;
 }

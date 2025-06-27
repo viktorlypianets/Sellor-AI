@@ -1,0 +1,169 @@
+.review-panel {
+  max-width: 80%;
+  width: 80%;
+  font-family: sans-serif;
+  padding: 20px;
+  color: #333;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+.reviewer-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.stars {
+  font-size: 20px;
+  color: #ffa500;
+}
+
+.tag-negative {
+  margin-left: auto;
+  background-color: #f44336;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.review-text {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.ai-heading {
+  margin-top: 30px;
+  font-weight: normal;
+  color: #666;
+}
+
+.response-options {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.response-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bg-blue {
+  /* background-color: #49a7f5; */
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top: 12px solid #49a7f5;
+}
+
+.bg-pink {
+  /* background-color: #f471a2; */
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top: 12px solid #f471a2;
+}
+
+.bg-purple {
+  /* background-color: #8b79f7; */
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top: 12px solid #8b79f7;
+}
+
+.response-header-bg-blue {
+  color: #eee;
+  text-align: center;
+  height: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: #49a7f5;
+}
+.response-header-bg-pink {
+  color: #eee;
+  text-align: center;
+  height: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: #f471a2;
+}
+.response-header-bg-purple {
+  color: #eee;
+  text-align: center;
+  height: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: #8b79f7;
+}
+
+.response-text {
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.response-actions {
+  margin: 12px 0;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-primary {
+  background-color: #6a66ff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.schedule-wrapper {
+  margin-top: 12px;
+}
+
+.schedule-toggle {
+  background: none;
+  border: none;
+  color: #6a66ff;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.schedule-fields input {
+  margin-right: 8px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-schedule {
+  padding: 6px 12px;
+  background-color: #6a66ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
