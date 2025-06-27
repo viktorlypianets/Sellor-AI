@@ -8,9 +8,6 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
-const SHOPIFY_API_SECRET = process.env.SHOPIFY_API_SECRET;
-const FRONTEND_URLL = process.env.FRONTEND_URLL;
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -304,7 +301,7 @@ app.get("/auth/callback", async (req, res) => {
     const { access_token } = response.data;
     console.log("Access Token:", access_token);
     // token = access_token;
-    const FRONTEND_URL = FRONTEND_URLL || "http://localhost:3000";
+    const FRONTEND_URL = process.env.FRONTEND_URLL || "http://localhost:3000";
     res.redirect(`${FRONTEND_URL}`);
   } catch (error) {
     if (error.response) {
@@ -319,6 +316,10 @@ app.get("/auth/callback", async (req, res) => {
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
+
+app.get("/widget", (req, res) => {
+  res.sendFile(path.join(__dirname, "../widget/widget.js"));
 });
 
 app.listen(PORT, () => {
