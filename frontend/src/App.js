@@ -5,10 +5,19 @@ import InstallButton from "./components/InstallButton";
 import "./App.css";
 
 function App() {
-  return React.createElement(
-    Chatbot,
-    React.createElement(InstallButton)
-    // React.createElement(InstallButton)
+  return (
+    <div className="app">
+      <header className="app-header">
+        <h1>SmartAsk Chatbot</h1>
+      </header>
+      <main className="app-main">
+        <Chatbot config={window.SmartAskConfig} />
+        <InstallButton />
+      </main>
+      <footer className="app-footer">
+        <p>&copy; 2023 SmartAsk. All rights reserved.</p>
+      </footer>
+    </div>
   );
 }
 

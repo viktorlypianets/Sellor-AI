@@ -11,6 +11,7 @@ const InstallButton = () => {
   };
   return (
     <div className="install-container">
+      <h1>This is a test</h1>
       <div className="install-card">
         <h1 className="install-title">Install Your Shopify App</h1>
         <input
