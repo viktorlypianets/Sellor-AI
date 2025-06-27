@@ -314,12 +314,15 @@ app.get("/auth/callback", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+app.get("/widget/widget.js", (req, res) => {
+  console.log("SErver widges");
+  res.sendFile(path.join(__dirname, "../widget/widget.js"));
 });
 
-app.get("/widget", (req, res) => {
-  res.sendFile(path.join(__dirname, "../widget/widget.js"));
+app.use("/widget", express.static(path.join(__dirname, "../widget")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
 app.listen(PORT, () => {
