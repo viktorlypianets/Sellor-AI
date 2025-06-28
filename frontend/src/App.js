@@ -10,6 +10,8 @@ import {
 import { AppProvider, Frame } from "@shopify/polaris";
 import Dashboard from "./pages/Dashboard";
 import Customer from "./pages/Cusomter";
+import Widget from "./components/ChatWidget";
+import "./components/ChatWidget.css";
 
 const App = () => {
   return (
@@ -19,6 +21,7 @@ const App = () => {
           <Route path="/customer/:id" element={<Customer />} />
           <Route path="/login" element={<InstallButton />} />
           <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Widget />} />
         </Routes>
       </Frame>
     </Router>
