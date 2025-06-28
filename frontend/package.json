@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
-    "@shopify/polaris": "^13.9.5",
+    "@shopify/polaris": "^11.12.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -19,7 +19,7 @@
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^0.0.0",
     "react-toastify": "^11.0.5",
     "shopify": "^3.80.1",
     "web-vitals": "^2.1.4"
