@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/customer/:id" element={<Customer />} />
           <Route path="/login" element={<InstallButton />} />
           <Route path="/" element={<Dashboard />} />
-          <Route path="/" element={<Widget />} />
+          <Route path="/widget" element={<Widget />} />
         </Routes>
       </Frame>
     </Router>
