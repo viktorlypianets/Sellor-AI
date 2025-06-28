@@ -45,7 +45,7 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
-app.use("/widget", express.static(path.join(__dirname, "../public-widget")));
+app.use("/widget", express.static(path.join(__dirname, "../widget")));
 
 initScheduledJobs();
 
