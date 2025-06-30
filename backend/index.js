@@ -136,6 +136,7 @@ const PORT = process.env.PORT || 5000;
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log("Cron jobs initialized");
