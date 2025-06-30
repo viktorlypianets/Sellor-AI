@@ -249,7 +249,7 @@ export default function ChatWidget({ config }) {
 }
 
 .chat-card {
-  width: 380px;
+  width: 300px;
   height: 500px;
   display: flex;
   flex-direction: column;
@@ -410,79 +410,107 @@ export default function ChatWidget({ config }) {
           zIndex: "100",
         }}
       >
-        {!showChat && (
-          <div className="chat-button" onClick={() => setShowChat(true)}>
-            <MessageSquare className="chat-icon" color="white" />
-            <p className="chat-text">Ask a Question</p>
-          </div>
-        )}
-        {showChat && (
-          <div className="chat-card" ref={chatCardRef}>
-            <div className="chat-header">
-              <p>Chat with Us</p>
-              <X
-                strokeWidth={3}
-                onClick={() => setShowChat(false)}
-                style={{ cursor: "pointer" }}
-              />
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {/* Avatar on the left - only show when chat is open */}
+          {showChat && (
+            <div
+              className="chat-avatar"
+              onClick={() => { if (!showChat) setShowChat(true); }}
+              style={{
+                width: 200,
+                height: 300,
+                borderRadius: "5%",
+                background: "transparent",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                cursor: !showChat ? "pointer" : "default",
+                transition: "box-shadow 0.2s",
+              }}
+              title="Open chat"
+            >
+              <UserIcon color="white" size={60} />
             </div>
-            <div className="chat-content">
-              {messages.map((msg, idx) => (
-                <ChatBubble key={idx} from={msg.from} text={msg.text} />
-              ))}
-              {loading && (
-                <div className="dot-loader">
-                  <div className="dot"></div>
-                  <div className="dot"></div>
-                  <div className="dot"></div>
-                </div>
-              )}
-              {messages.length === 0 && suggestedQuestions.length > 0 && (
-                <>
-                  <p className="suggested-title">Suggested Questions:</p>
-                  <SuggestedQuestions
-                    questions={suggestedQuestions}
-                    onSelect={handleSuggested}
+          )}
+
+          <div>
+            {/* Chat button or chat card */}
+            {!showChat && (
+              <div className="chat-button" onClick={() => setShowChat(true)}>
+                <MessageSquare className="chat-icon" color="white" />
+                <p className="chat-text">Ask a Question</p>
+              </div>
+            )}
+            {showChat && (
+              <div className="chat-card" ref={chatCardRef}>
+                <div className="chat-header">
+                  <p>Chat with Us</p>
+                  <X
+                    strokeWidth={3}
+                    onClick={() => setShowChat(false)}
+                    style={{ cursor: "pointer" }}
                   />
-                </>
-              )}
-            </div>
-            <div className="chat-input-container">
-              <input
-                className="chat-input"
-                placeholder="Type your question..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              />
+                </div>
+                <div className="chat-content">
+                  {messages.map((msg, idx) => (
+                    <ChatBubble key={idx} from={msg.from} text={msg.text} />
+                  ))}
+                  {loading && (
+                    <div className="dot-loader">
+                      <div className="dot"></div>
+                      <div className="dot"></div>
+                      <div className="dot"></div>
+                    </div>
+                  )}
+                  {messages.length === 0 && suggestedQuestions.length > 0 && (
+                    <>
+                      <p className="suggested-title">Suggested Questions:</p>
+                      <SuggestedQuestions
+                        questions={suggestedQuestions}
+                        onSelect={handleSuggested}
+                      />
+                    </>
+                  )}
+                </div>
+                <div className="chat-input-container">
+                  <input
+                    className="chat-input"
+                    placeholder="Type your question..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                  />
 
-              {/* Record Button (Mic) */}
-              <button
-                className={`send-button ${isRecording ? "recording" : ""}`}
-                onMouseDown={() => {
-                  if (recognitionRef.current) {
-                    recognitionRef.current.start();
-                    setIsRecording(true);
-                  }
-                }}
-                onMouseUp={() => {
-                  if (recognitionRef.current && isRecording) {
-                    recognitionRef.current.stop();
-                    setIsRecording(false);
-                  }
-                }}
-                title="Hold to Record"
-              >
-                <Mic strokeWidth={2.5} />
-              </button>
+                  {/* Record Button (Mic) */}
+                  <button
+                    className={`send-button ${isRecording ? "recording" : ""}`}
+                    onMouseDown={() => {
+                      if (recognitionRef.current) {
+                        recognitionRef.current.start();
+                        setIsRecording(true);
+                      }
+                    }}
+                    onMouseUp={() => {
+                      if (recognitionRef.current && isRecording) {
+                        recognitionRef.current.stop();
+                        setIsRecording(false);
+                      }
+                    }}
+                    title="Hold to Record"
+                  >
+                    <Mic strokeWidth={2.5} />
+                  </button>
 
-              {/* Send Button */}
-              <button className="send-button" onClick={handleSend}>
-                <ChevronRight strokeWidth={3} />
-              </button>
-            </div>
+                  {/* Send Button */}
+                  <button className="send-button" onClick={handleSend}>
+                    <ChevronRight strokeWidth={3} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </>
   );
