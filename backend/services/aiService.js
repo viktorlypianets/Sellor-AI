@@ -18,7 +18,7 @@ export const getAIResponse = async (sessionId, message, customerId) => {
     context = await getRelevantContext(message, sessionId, "8417072578653");
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
