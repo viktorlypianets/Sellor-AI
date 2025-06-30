@@ -118,7 +118,7 @@ app.get("/auth/callback", async (req, res) => {
     console.log("Access Token:", access_token);
     // token = access_token;
 
-    const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+    const FRONTEND_URL = process.env.FRONTEND_URLL || "http://localhost:3000";
     res.redirect(`${FRONTEND_URL}`);
   } catch (error) {
     if (error.response) {
