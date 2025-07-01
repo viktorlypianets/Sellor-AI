@@ -1,4 +1,5 @@
 import express from "express";
+import axios from "axios";
 import supabase from "../config/supabase.js";
 import { getAIResponse } from "../services/aiService.js";
 
@@ -114,9 +115,113 @@ router.post("/message", async (req, res) => {
     .update({ msged: true })
     .eq("id", sessionId);
 
-  const response = await getAIResponse(sessionId, message);
+  const aiResponse = await getAIResponse(sessionId, message);
 
-  res.json({ success: true, data: response });
+  let finalVideoUrl = null;
+
+  if (process.env.DID_API_KEY && process.env.DID_API_KEY.trim() !== "") {
+    try {
+      console.log("Attempting D-ID Clips API integration...");
+      console.log(
+        "D-ID API Key configured:",
+        process.env.DID_API_KEY ? "Yes" : "No"
+      );
+
+      const didResponse = await axios.post(
+        "https://api.d-id.com/clips",
+        {
+          presenter_id: "lily-ldwi8a_LdG",
+          script: {
+            type: "text",
+            subtitles: "false",
+            provider: {
+              type: "microsoft",
+              voice_id: "fr-FR-DeniseNeural",
+            },
+            input: aiResponse.substring(0, 500), // Limit text length
+            ssml: "false",
+          },
+          config: {
+            result_format: "mp4",
+          },
+          presenter_config: {
+            crop: {
+              type: "wide",
+            },
+          },
+        },
+        {
+          headers: {
+            accept: "application/json",
+            "content-type": "application/json",
+            authorization: `Basic ${process.env.DID_API_KEY}`,
+          },
+          timeout: 3000,
+        }
+      );
+
+      const clipId = didResponse.data.id;
+      console.log("D-ID Clip ID:", clipId);
+
+      // Poll for video completion
+      let videoReady = false;
+      let attempts = 0;
+
+      while (!videoReady && attempts < 30) {
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds between checks
+
+        const statusResponse = await axios.get(
+          `https://api.d-id.com/clips/${clipId}`,
+          {
+            headers: {
+              accept: "application/json",
+              authorization: `Basic ${process.env.DID_API_KEY}`,
+            },
+            timeout: 5000,
+          }
+        );
+
+        console.log(
+          `Attempt ${attempts + 1}: Status -`,
+          statusResponse.data.status
+        );
+
+        if (statusResponse.data.status === "done") {
+          videoReady = true;
+          finalVideoUrl = statusResponse.data.result_url;
+          console.log("Video ready:", finalVideoUrl);
+        } else if (statusResponse.data.status === "error") {
+          console.error("D-ID processing failed:", statusResponse.data);
+          break;
+        }
+
+        attempts++;
+      }
+
+      if (!videoReady) {
+        console.log("Video generation timed out after 30 attempts");
+      }
+    } catch (didError) {
+      console.error("D-ID Error Details:");
+      console.error("Status:", didError.response?.status);
+      console.error("Data:", didError.response?.data);
+      console.error("Message:", didError.message);
+      // Continue without video - just return text response
+    }
+  } else {
+    console.log("No D-ID API key provided, skipping avatar generation");
+    console.log(
+      "To enable D-ID avatar generation, set DID_API_KEY environment variable"
+    );
+  }
+
+  res.json({
+    success: true,
+    data: {
+      answer: aiResponse,
+      videoUrl: finalVideoUrl,
+    },
+  });
 });
 
 export default router;

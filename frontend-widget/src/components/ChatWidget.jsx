@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { MessageSquare, UserIcon, X, ChevronRight, Mic } from "lucide-react";
+import Avatar from "./Avatar";
 import "./ChatWidget.css";
 
 const ChatBubble = ({ from, text }) => {
@@ -51,6 +52,8 @@ export default function ChatWidget({ config }) {
   const [suggestedQuestions, setSuggestedQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [avatarVideoUrl, setAvatarVideoUrl] = useState(null);
+  const [showAvatar, setShowAvatar] = useState(false);
   const chatCardRef = useRef(null);
 
   useEffect(() => {
@@ -96,6 +99,12 @@ export default function ChatWidget({ config }) {
         const reply = res.data.data.answer;
         setMessages((prev) => [...prev, { from: "bot", text: reply }]);
         speakText(reply);
+
+        // Handle avatar video if available
+        if (res.data.data.videoUrl) {
+          setAvatarVideoUrl(res.data.data.videoUrl);
+          setShowAvatar(true);
+        }
       }
     } catch (err) {
       setLoading(false);
@@ -110,6 +119,11 @@ export default function ChatWidget({ config }) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "en-US";
     speechSynthesis.speak(utterance);
+  };
+
+  const handleAvatarVideoEnd = () => {
+    setShowAvatar(false);
+    setAvatarVideoUrl(null);
   };
 
   useEffect(() => {
@@ -185,6 +199,12 @@ export default function ChatWidget({ config }) {
           ...newMessages,
           { from: "bot", text: res.data.data.answer },
         ]);
+
+        // Handle avatar video if available
+        if (res.data.data.videoUrl) {
+          setAvatarVideoUrl(res.data.data.videoUrl);
+          setShowAvatar(true);
+        }
       }
     } catch (err) {
       setLoading(false); // Stop loading
@@ -410,6 +430,11 @@ export default function ChatWidget({ config }) {
           zIndex: "100",
         }}
       >
+        <Avatar
+          videoUrl={avatarVideoUrl}
+          isVisible={showAvatar}
+          onVideoEnd={handleAvatarVideoEnd}
+        />
         {!showChat && (
           <div className="chat-button" onClick={() => setShowChat(true)}>
             <MessageSquare className="chat-icon" color="white" />

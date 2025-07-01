@@ -10,8 +10,6 @@ import {
 import { AppProvider, Frame } from "@shopify/polaris";
 import Dashboard from "./pages/Dashboard";
 import Customer from "./pages/Cusomter";
-import Widget from "./components/ChatWidget";
-import "./components/ChatWidget.css";
 
 const App = () => {
   return (
